@@ -1,0 +1,321 @@
+WindowManager:
+    FirstWindow:
+    SecondWindow:
+    ThirdWindow:
+    SubMenuHRMApp:
+
+
+<FirstWindow>:
+    name: "first"
+
+    BoxLayout:
+        orientation: "vertical"
+        size: root.width, root.height
+        spacing: 250
+        padding: 0,0,10,40
+        canvas.before:
+            Rectangle:
+                pos: self.pos
+                size: self.width, self.height/2
+                pos: (0,0)
+                source: 'zk3.png'
+
+        Label:
+            markup: True
+            text: "[b]  [color=#3A5D67]WELCOME\n    TO[/color][/b] [color=#55B747]HRM\nSCHEDULER[/color]"
+            font_size: 40
+
+        Button:
+            id: check
+            markup: True
+            text: "[color=#fff]Next[/color]"
+            size_hint: (.29, 0.1)
+            pos_hint: {'x': .63, 'y': 0.9}
+            background_color: (58/255, 93/255, 103/255, 255/255)
+            on_press: root.next()
+            on_release:
+                if check.text == "Next": app.root.current = "third"
+                elif check.text == "Verify": app.root.current = "second"
+
+
+
+<SecondWindow>:
+    name: "second"
+    url: url
+    key: key
+    info: info
+
+    BoxLayout:
+        orientation: "vertical"
+        size: root.width, root.height
+        spacing: 0
+        padding: 0,250,0,0
+
+        canvas.before:
+            Rectangle:
+                pos: self.pos
+                size: self.width/2+100, self.height/3-40
+                pos: (60,460)
+                source: 'second.png'
+
+        BoxLayout:
+            orientation: "vertical"
+            Label:
+                markup: True
+                pos_hint: {'x':-0.2, 'y': 0.1}
+                text: "[color=#3A5D67]Please enter your\npurchase key[color=#55B747]"
+                font_size: 22
+
+
+        BoxLayout:
+            orientation: "vertical"
+            padding: 40,0,40, 40
+
+            BoxLayout:
+                orientation: "vertical"
+                spacing: 15
+
+                #Label:
+                    #id: info
+                    #text: ''
+                    #markup: True
+
+                TextInput:
+                    id: key
+                    padding_x:[20,0]
+                    padding_y:[18.5,0]
+                    background_color: 252/255, 252/255, 252/255, 0.4
+                    cursor_color: 1, 1, 1, 1
+                    hint_text: 'BDT-97C-AEDBF150-B9-CE5ACD60A660'
+
+                TextInput:
+                    id: url
+                    padding_x:[20,0]
+                    padding_y:[18.5,0]
+                    background_color: 252/255, 252/255, 252/255, 0.4
+                    cursor_color: 1, 1, 1, 1
+                    hint_text: 'Base URL: https://example.com/'
+                    font_size: 16
+                    multiline: True
+
+        BoxLayout:
+            orientation: "horizontal"
+            padding: 0,115,0,0
+            BoxLayout:
+                padding: 0,0,52,62
+                Label:
+                    markup: True
+                    #text: "[color=#56b747][/color]"
+                    text: '[color=#56b747][ref=https://www.bdtask.com/]Need Help?[/ref][/color]'
+                    font_size: 16
+                    on_ref_press:
+                        import webbrowser
+                        webbrowser.open(args[1])
+
+            BoxLayout:
+                padding: 50,0,40,0
+                Button:
+                    id: info
+                    markup: True
+                    text: "[color=#fff]Next[/color]"
+                    font_size: 16
+                    size_hint: (0.3, 0.9)
+                    pos_hint: {'x': .62, 'y': 0.9}
+                    background_color: (86/255, 183/255, 71/255, 255/255)
+                    on_press: root.next()
+                    on_release:
+                        if info.text == "Next": app.root.current = "third"
+
+
+
+<ThirdWindow>:
+    name: "third"
+    ip: ip
+    port: port
+    sinfo: sinfo
+
+    BoxLayout:
+        orientation: "horizontal"
+        size: root.width, root.height
+        size_hint: 1, 1
+        height: '48dp'
+
+        Button:
+            markup: True
+            text: "[color=#fff][b]Home[/b][/color]"
+            font_size: 16
+            size_hint: (0.1, 0.05)
+            pos_hint: {'x': .62, 'y': 0.95}
+            background_color: (58/255, 93/255, 103/255, 255/255)
+            #on_press: root.save()
+            on_release: app.root.current = "first"
+
+        Button:
+            markup: True
+            text: "[color=#fff][b]HRM App[/b][/color]"
+            font_size: 16
+            size_hint: (0.1, 0.05)
+            pos_hint: {'x': .62, 'y': 0.95}
+            background_color: (58/255, 93/255, 103/255, 255/255)
+            #on_press: root.save()
+            on_release: app.root.current = "HRMApp"
+
+        Button:
+            markup: True
+            text: "[color=#fff][b]Scheduler[/b][/color]"
+            font_size: 16
+            size_hint: (0.1, 0.05)
+            pos_hint: {'x': .62, 'y': 0.95}
+            background_color: (58/255, 93/255, 103/255, 255/255)
+            on_press: root.save_data()
+            on_release: app.root.current = "third"
+
+    BoxLayout:
+        orientation: "vertical"
+        size: root.width, root.height
+        spacing: -90
+        padding: 0, 0, 0, 80
+        size_hint_y: None
+
+        Label:
+            markup: True
+            #pos_hint: {'x':-0.2, 'y': 0.1}
+            text: "[color=#3A5D67][b]Please enter your[/b][/color]\n  [color=#56b747]ZKTeco[/color] [color=#3A5D67]Device\n     Information[/color]"
+            font_size: 32
+
+        BoxLayout:
+            orientation: "vertical"
+            padding: 40, 35, 40, 35
+            spacing: 30
+
+            TextInput:
+                id: ip
+                padding_x:[20,0]
+                padding_y:[16,0]
+                background_color: 252/255, 252/255, 252/255, 0.4
+                cursor_color: 1, 1, 1, 1
+                hint_text: 'Device IP: 192.168.1.246'
+                font_size: 16
+                multiline: False
+                focus: True
+
+            TextInput:
+                id: port
+                padding_x:[20,0]
+                padding_y:[16,0]
+                background_color: 252/255, 252/255, 252/255, 0.4
+                cursor_color: 1, 1, 1, 1
+                focus: True
+                hint_text: 'PORT No: 4370'
+                font_size: 16
+                multiline: False
+
+            Label:
+                id: sinfo
+                text: ""
+                markup: True
+
+            Button:
+                markup: True
+                text: "[color=#fff]Save[/color]"
+                font_size: 16
+                size_hint: (1, 1)
+                #pos_hint: {'x': .62, 'y': 0.9}
+                background_color: (86/255, 183/255, 71/255, 255/255)
+                on_release: app.root.current = "third"
+                on_press: root.save_data()
+
+
+
+<SubMenuHRMApp>:
+    name: "HRMApp"
+    search: search
+    einfo: einfo
+
+    BoxLayout:
+        orientation: "horizontal"
+
+        Button:
+            markup: True
+            text: "[color=#fff][b]Home[/b][/color]"
+            font_size: 16
+            size_hint: (0.1, 0.05)
+            pos_hint: {'x': .62, 'y': 0.95}
+            background_color: (58/255, 93/255, 103/255, 255/255)
+            on_release: app.root.current = "first"
+
+
+        Button:
+            markup: True
+            text: "[color=#fff][b]HRM App[/b][/color]"
+            font_size: 16
+            size_hint: (0.1, 0.05)
+            pos_hint: {'x': .62, 'y': 0.95}
+            background_color: (58/255, 93/255, 103/255, 255/255)
+            on_release: app.root.current = "HRMApp"
+
+
+        Button:
+            markup: True
+            text: "[color=#fff][b]Scheduler[/b][/color]"
+            font_size: 16
+            size_hint: (0.1, 0.05)
+            pos_hint: {'x': .62, 'y': 0.95}
+            background_color: (58/255, 93/255, 103/255, 255/255)
+            on_release: app.root.current = "third"
+
+
+    BoxLayout:
+        orientation: "vertical"
+        size: root.width, root.height
+        spacing: -90
+        padding: 0, 0, 0, 80
+        size_hint_y: None
+
+        Label:
+            markup: True
+            #pos_hint: {'x':-0.2, 'y': 0.1}
+            text: "[color=#3A5D67][b]Please add your[/b]\n employee ID to[/color]\n[color=#55B747]    ZKT[/color] [color=#3A5D67]Device[/color]"
+            font_size: 32
+
+        BoxLayout:
+            orientation: "vertical"
+            padding: 40, 90, 40, 90
+            spacing: 20
+
+            Label:
+                id: einfo
+                text: ""
+                markup: True
+
+            TextInput:
+                id: search
+                padding_x:[20,0]
+                padding_y:[18,0]
+                background_color: 252/255, 252/255, 252/255, 0.4
+                cursor_color: 1, 1, 1, 1
+                hint_text: 'Employee Id: '
+                font_size: 16
+                multiline: False
+
+            BoxLayout:
+                orientation: "horizontal"
+                Button:
+                    markup: True
+                    text: "[color=#fff]Save[/color]"
+                    font_size: 16
+                    size_hint: (1, 1)
+                    #pos_hint: {'x': .62, 'y': 0.9}
+                    background_color: (86/255, 183/255, 71/255, 255/255)
+                    on_press: root.hrm_app()
+                    on_release: app.root.current = "HRMApp"
+
+                Button:
+                    markup: True
+                    text: "[color=#fff]Delete[/color]"
+                    font_size: 16
+                    size_hint: (1, 1)
+                    #pos_hint: {'x': .62, 'y': 0.9}
+                    background_color: (255/255, 0, 0, 255/255)
+                    on_press: root.delete_employee()
+                    on_release: app.root.current = "HRMApp"
